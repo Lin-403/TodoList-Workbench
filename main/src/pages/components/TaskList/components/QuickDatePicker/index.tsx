@@ -1,6 +1,7 @@
 
 import { DatePicker, Tag } from 'antd'
 import moment from 'moment'
+import { useState } from 'react'
 import { quickTimeConfig } from '../../config'
 import './index.less'
 //定义一个接口规范props的类型
@@ -11,7 +12,7 @@ interface IProps {
 
 export default function QuickDatePicker(props: IProps) {
     const { value, onChange } = props
-
+    // const [open,setOpen]=useState(false)
     const handleQuickCreate = (offset: number) => {
         const d = new Date()
         const time = d.toLocaleDateString().split('/').join(' ') + ' 18:00:00'
@@ -24,7 +25,8 @@ export default function QuickDatePicker(props: IProps) {
             
             <DatePicker
                 placeholder='选择任务截止日期'
-                showTime onOk={onChange}
+                showTime 
+                onOk={onChange}
                 value={value}
                 size="small"
             />

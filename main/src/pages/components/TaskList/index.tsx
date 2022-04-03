@@ -56,6 +56,10 @@ export default function TaskList() {
     setTasks([...tasks.filter(i => i.taskID !== taskID)])
   }
 
+  const handleRemove = (taskID: string) => {
+    setTasks([...tasks.filter(i => i.taskID !== taskID)])
+  }
+
   const handleModify=(values:TaskT)=>{
      setTasks([...tasks.filter(i => i.taskID !== activeTaskKey),values])
     message.success('修改成功')
@@ -114,8 +118,8 @@ export default function TaskList() {
             return (<TaskItem
               key={i.title}
               title={i.title}
-              desc="qwe"
               endTime={i.endTime}
+              onRemove={()=> handleRemove(i.taskID)}
               onFinish={() => handleFinish(i.taskID)}
               onMore={() => setActiveTaskKey(i.taskID)}
               active={activeTaskKey === i.taskID} />)

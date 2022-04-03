@@ -5,7 +5,7 @@ interface IProps{
     name:string 
     count:number 
     active:boolean
-    icon?:ReactNode
+    icon?:()=>ReactNode
     onClick:()=>void
 }
 
@@ -15,6 +15,7 @@ export default function MenuItem(props:IProps){
         <button className={`menu-item ${active?'menu-item--active':''}`}
             onClick={onClick}
             >
+            {icon?.()}
             <span className='menu-item_name'>{name}</span>
             <span className='menu-item_count'>{count}</span>
         </button>

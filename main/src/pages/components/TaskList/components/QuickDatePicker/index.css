@@ -1,0 +1,15 @@
+.time-tags {
+  position: absolute;
+  bottom: 10px;
+  width: calc(100% - 20px);
+  display: flex;
+}
+.time-tags .ant-tag {
+  cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+}
+.time-tags .ant-picker {
+  min-width: 50px;
+  margin-right: 10px;
+}

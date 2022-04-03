@@ -1,0 +1,67 @@
+.task-item {
+  position: relative;
+  height: 80px;
+  padding: 10px;
+  border-radius: 2px;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: all 0.4s;
+  border-radius: 4px;
+  background: #fcfcfc;
+  box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+}
+.task-item:hover {
+  box-shadow: 0 0 2px 2px #c7c5c5ad;
+}
+.task-item--active {
+  background: #F0F2FD;
+}
+.task-item_info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  transition: all 0.3s;
+  border-radius: 2px;
+  margin-right: 10px;
+  padding-left: 10px;
+}
+.task-item_info:hover {
+  background-color: #f5f5f5;
+}
+.task-item_title {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.task-item_desc {
+  color: #7e7e7e;
+}
+.task-item_status {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+}
+.task-item_ddl {
+  color: hsl(244, 85%, 45%);
+  background: #e7f4ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  width: 110px;
+  margin-bottom: 2px;
+}
+.task-item_finish-btn {
+  border: none;
+  background: #3a77ff;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.task-item_del-btn {
+  border: none;
+  background: #e7f4ff;
+  color: #3a77ff;
+  border-radius: 3px;
+  cursor: pointer;
+}

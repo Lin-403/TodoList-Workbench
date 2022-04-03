@@ -1,0 +1,71 @@
+.task-item{
+    position: relative;
+    height: 80px;
+    padding: 10px;
+    // box-shadow: 0 0 1px 1px #dddadaad;
+    border-radius: 2px;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    transition: all .4s;
+    border-radius: 4px;
+    background: #fcfcfc;
+    box-shadow: 5px 5px 10px #d1d1d1,-5px -5px 10px #ffffff;
+    &:hover{
+        box-shadow: 0 0 2px 2px #c7c5c5ad;
+    }
+    &--active{
+        background: #F0F2FD;
+        // color:#5656b4;
+    }
+    &_info{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        transition: all .3s;
+        border-radius: 2px;
+        margin-right: 10px;
+        padding-left: 10px;
+        &:hover{
+            background-color: #f5f5f5;
+        }
+    }
+    &_title{
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+    &_desc{
+        color:#7e7e7e;
+    }
+    &_status{
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+    }
+    &_ddl{
+        color: hsl(244, 85%, 45%);
+        background: #e7f4ff;
+        padding:2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        width: 110px;
+        margin-bottom: 2px;
+    
+    }
+    &_finish-btn{
+        border:none;
+        background: #3a77ff;
+        color:white;
+        border-radius:3px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    &_del-btn{
+        // margin-left: 10px;
+        border:none;
+        background: #e7f4ff;
+        color:#3a77ff;
+        border-radius:3px;
+        cursor: pointer;
+    }
+}

@@ -1,3 +1,14 @@
-.title {
-  background: #0fa10a;
+.page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.container {
+  display: flex;
+}
+.standard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }

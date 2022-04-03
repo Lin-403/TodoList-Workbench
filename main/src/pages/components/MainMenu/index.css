@@ -1,0 +1,20 @@
+.main-menu {
+  width: 20%;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 10px;
+  background: #fcfcfc;
+}
+.main-menu_content {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  flex: 1;
+  background-color: #deeaf6;
+  box-shadow: #becbd8 4px 4px 8px 0px;
+  padding: 10px 10px;
+}
+.main-menu .menu-item {
+  margin-bottom: 8px;
+}

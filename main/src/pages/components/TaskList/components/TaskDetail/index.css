@@ -1,0 +1,21 @@
+.task-detail .form-item_container {
+  display: flex;
+}
+.task-detail .form-item_container .time-tags {
+  flex-wrap: wrap;
+}
+.task-detail .form-item_container .time-tags .ant-picker {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.task-detail .form-item_icon {
+  width: 50px;
+}
+.task-detail .form-item_comp {
+  flex: 1;
+}
+.task-detail .submit-btn {
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+}

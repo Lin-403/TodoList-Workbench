@@ -2,15 +2,18 @@
 import TaskItem from './components/TaskItem';
 import './index.less'
 
-import { Button, DatePicker, Drawer, Input, message, Tag } from 'antd'
-import { PlusIcon } from '@/components/Icon';
-import { useMemo, useState } from 'react';
+import { Button, Input, message } from 'antd'
+import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
-import { quickTimeConfig } from './config';
+
+import { PlusIcon } from '@/components/Icon';
 import TaskDetail from './components/TaskDetail';
 import QuickDatePicker from './components/QuickDatePicker';
-// const moment =require('moment')
+import apiConfig from '@/api/config';
 moment.suppressDeprecationWarnings = true;
+import { api, postApi } from '@/api/index'
+import { API_RESULT } from '@/const';
+
 
 export type TaskT = {
   taskID: string
@@ -26,6 +29,30 @@ export default function TaskList() {
   const [tasks, setTasks] = useState<TaskT[]>([])
   const [activeTaskKey, setActiveTaskKey] = useState('')
 
+  useEffect(() => {
+    getLatestList()
+  }, [])
+  //获取json数据
+  const getLatestList = () => {
+    api(apiConfig.list.url).then(res => {
+      if (res.code === API_RESULT.SUCCESS) {
+
+        const latestTasks = res.data.map((i: TaskT) => {
+          // const momentDDL=moment(i.endTime)
+          return Object.assign(i, {
+            endTime: moment(i.endTime)
+          })
+        })
+        // console.log(latestTasks)
+        setTasks(latestTasks)
+      }
+      else {
+
+      }
+    }).catch(e => {
+
+    })
+  }
   // const onChange = (value: any, dateString: string) => {
   //   console.log('Selected Time: ', value);
   //   console.log('Formatted Selected Time: ', dateString);
@@ -39,29 +66,61 @@ export default function TaskList() {
 
   const handleCreate = () => {
     const taskID = Date.now().toString()
-    setTasks([...tasks, {
+    const newTask = {
       title: curTitle,
       endTime: ddl,
       desc: '',
       taskID
-    }])
-    setIsCreate(false)
-    setCurTitle('')
-    message.success('创建成功')
+    }
+
+    //点击创建，创建成功的话直接提交到后端
+    postApi(apiConfig.create.url, newTask).then((data: any) => {
+      //提交请求成功
+      // console.log(data.code,'79')
+      console.log(data,'data')
+      getLatestList()
+      setIsCreate(false)
+      setCurTitle('')
+      message.success('创建成功')
+    }).catch((e: any) => {
+      //提交请求失败
+      console.log(e)
+    })
+
+
   }
 
 
 
   const handleFinish = (taskID: string) => {
     setTasks([...tasks.filter(i => i.taskID !== taskID)])
+
   }
 
   const handleRemove = (taskID: string) => {
-    setTasks([...tasks.filter(i => i.taskID !== taskID)])
+
+    //点击创建，创建成功的话直接提交到后端
+    postApi(apiConfig.remove.url, {
+      taskID
+    }).then((res: any) => {
+      //提交请求成功
+      console.log(res)
+      if (res.code === API_RESULT.SUCCESS) {
+        message.success('删除成功')
+        getLatestList()
+      }
+      else {
+        message.error(res.msg)
+      }
+
+    }).catch((e: any) => {
+      //提交请求失败
+      console.log(e)
+    })
   }
 
-  const handleModify=(values:TaskT)=>{
-     setTasks([...tasks.filter(i => i.taskID !== activeTaskKey),values])
+  const handleModify = (values: TaskT) => {
+    setTasks([...tasks.filter(i => i.taskID !== activeTaskKey), values])
     message.success('修改成功')
   }
 
@@ -85,28 +144,28 @@ export default function TaskList() {
         {
           isCreate && (
             <>
-            <QuickDatePicker
-             value={ddl}
-             onChange={(m)=>setDDL(m)}
-            />
+              <QuickDatePicker
+                value={ddl}
+                onChange={(m) => setDDL(m)}
+              />
 
-            <div className='operation-btns'>
-            <Button
-              size="small"
-              onClick={() => { setIsCreate(false); setCurTitle('')}}
-              style={{ marginRight: '5px' }}
-            >
-              取消</Button>
-            <Button
-              
-              size="small"
-              type="primary"
-              onClick={handleCreate}
-              disabled={curTitle === ''}
-            >
-              创建</Button>
-          </div>
-          </>)
+              <div className='operation-btns'>
+                <Button
+                  size="small"
+                  onClick={() => { setIsCreate(false); setCurTitle('') }}
+                  style={{ marginRight: '5px' }}
+                >
+                  取消</Button>
+                <Button
+
+                  size="small"
+                  type="primary"
+                  onClick={handleCreate}
+                  disabled={curTitle === ''}
+                >
+                  创建</Button>
+              </div>
+            </>)
 
         }
       </div>
@@ -119,7 +178,7 @@ export default function TaskList() {
               key={i.title}
               title={i.title}
               endTime={i.endTime}
-              onRemove={()=> handleRemove(i.taskID)}
+              onRemove={() => handleRemove(i.taskID)}
               onFinish={() => handleFinish(i.taskID)}
               onMore={() => setActiveTaskKey(i.taskID)}
               active={activeTaskKey === i.taskID} />)

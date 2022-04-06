@@ -1,10 +1,12 @@
 
 import { Button, DatePicker, Drawer, Form, Input, message, Tag } from 'antd';
+import moment from 'moment';
 import { useMemo, useState } from 'react';
 import { TaskT } from '../..';
 import { quickTimeConfig } from '../../config';
 import QuickDatePicker from '../QuickDatePicker';
 import './index.less'
+import { TASK_STATUS } from '@/const';
 
 interface IProps {
     task?: TaskT
@@ -35,13 +37,20 @@ export default function TaskDetail(props: IProps) {
     }
 
     const handleSubmit = (values: any) => {
-       
+       console.log(values,'00000')
+
+    //    onSubmit?.(Object.assign({}, values, task))
+      if(task){
         onSubmit?.({
-            taskID:task?.taskID ||'',
-            desc:values.desc ||task?.desc,
+            taskID:task.taskID ||'',
+            desc:values.desc ||task.desc,
             title:realTitle,
-            endTime:values.endTime ||task?.endTime
+            startTime:task.startTime||'',
+            endTime:values.endTime ||task.endTime,
+            status:task.status,
+            finishTime:task.finishTime||''
         })
+      }
         onClose()
         console.log('form', values, realTitle)
     }

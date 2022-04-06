@@ -18,6 +18,10 @@
         background: #F0F2FD;
         // color:#5656b4;
     }
+    &_date{
+        display: flex;
+        align-items: center;
+    }
     &_info{
         display: flex;
         flex-direction: column;
@@ -33,6 +37,9 @@
     &_title{
         margin-bottom: 10px;
         font-size: 15px;
+        &--timeout{
+            color: #FC5531;
+        }
     }
     &_desc{
         color:#7e7e7e;
@@ -45,12 +52,13 @@
     &_ddl{
         color: hsl(244, 85%, 45%);
         background: #e7f4ff;
-        padding:2px 6px;
-        border-radius: 4px;
-        font-size: 12px;
-        width: 110px;
-        margin-bottom: 2px;
-    
+
+    }
+    &_timeout{
+        color: hsl(0, 0%, 99%);
+        background: #FC5531;
+        text-align: center;
+
     }
     &_finish-btn{
         border:none;

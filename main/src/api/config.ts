@@ -9,6 +9,12 @@ const apiConfig={
     },
     remove:{
         url:'/remove',
+    },
+    update:{
+        url:'/update',
+    },
+    count:{
+        url:'/count',
     }
 };
 

@@ -11,25 +11,22 @@ const api=(url:string)=>{
 
 //封装带参数的get请求
 const getApi =(url:string,data:any)=>{
-    const queryString=Object.entries(data).map(i=>{
+   
+    const queryString=Object.entries(data).map(i=>
         `${i[0]}=${i[1]}`
-    })
-    return fetch(localServer+url+`?${queryString}`).then((response)=>response.json());
+    )
+
+    return fetch(localServer+url+`?${queryString}`).then(response=>response.json());
 }
 
 const postApi=(url:string,data:any)=>{
-    console.log(data,'data')
-    console.log(JSON.stringify(data))
     return fetch(localServer+url,{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify(data),
-    }).then((response)=>{
-        response.json()
-        // console.log(response,'res31')
-    })
+    }).then(response=>response.json())
 }
 
 export {api,getApi,postApi}

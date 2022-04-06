@@ -15,7 +15,7 @@ export default function QuickDatePicker(props: IProps) {
     // const [open,setOpen]=useState(false)
     const handleQuickCreate = (offset: number) => {
         const d = new Date()
-        const time = d.toLocaleDateString().split('/').join(' ') + ' 18:00:00'
+        const time = d.toISOString().split('T')[0] + 'T10:00:00.000Z'
         let momentTime = moment(time).add(offset, 'd') //.format('Y-M-D HH:mm:ss');
         onChange?.(momentTime)
     }
@@ -35,7 +35,6 @@ export default function QuickDatePicker(props: IProps) {
                     <Tag color={i.color}
                         key={i.offset}
                         onClick={() => {
-
                             handleQuickCreate(i.offset)
                         }}
                     >{i.title}</Tag>

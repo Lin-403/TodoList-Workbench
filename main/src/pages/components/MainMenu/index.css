@@ -12,8 +12,6 @@
   flex-direction: column;
   border-radius: 14px;
   flex: 1;
-  background-color: #deeaf6;
-  box-shadow: #becbd8 4px 4px 8px 0px;
   padding: 20px 10px;
 }
 .main-menu .menu-item {

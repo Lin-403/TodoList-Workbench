@@ -1,16 +1,35 @@
 .task-list{
     // background-color: #77817ce4;
     flex: 1;
-    background: #fcfcfc;
-    & >div:nth-child(1){
-        margin-top: 60px;
-    }
+    // background: #fcfcfc;
+    
     .task-item{
         margin-bottom: 15px;
         &_container{
             overflow: auto;
-            padding: 10px 10px;
+            padding: 0px 30px 10px 10px;
             height: 500px;
         }
     }
+
 }
+
+::-webkit-scrollbar{
+   
+    width: 6px;
+    height: 16px;
+
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 6px #fdfcfc;
+    border-radius: 10px;
+    background-color: #fdfcfc;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px #fdfcfc;
+    background-color: rgb(116, 115, 115);
+  }

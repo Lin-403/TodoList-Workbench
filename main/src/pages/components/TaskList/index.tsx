@@ -2,7 +2,7 @@
 import TaskItem from './components/TaskItem';
 import './index.less'
 
-import { Button, Empty, Input, message } from 'antd'
+import { Button, Calendar, Empty, Input, message } from 'antd'
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 
@@ -12,7 +12,7 @@ import QuickDatePicker from './components/QuickDatePicker';
 import apiConfig from '@/api/config';
 moment.suppressDeprecationWarnings = true;
 import { api, getApi, postApi } from '@/api/index'
-import { API_RESULT, MENU_KEY, TASK_STATUS } from '@/const';
+import { API_RESULT, MENU_KEY, TASK_STATUS, VIEW_MODE } from '@/const';
 import TaskCreator from './components/TaskCreator';
 
 
@@ -20,19 +20,20 @@ export type TaskT = {
   taskID: string
   title: string
   desc: string
-  startTime:moment.Moment;
+  startTime: moment.Moment;
   endTime: moment.Moment
-  status:number
-  finishTime:moment.Moment|''
+  status: number
+  finishTime: moment.Moment | ''
 }
 
-interface IProps{
-  activeKey:number,
-  onCountChange:()=>void
+interface IProps {
+  activeKey: number,
+  onCountChange: () => void
 }
 
-export default function TaskList(props:IProps) {
-  const {activeKey,onCountChange}=props
+export default function TaskList(props: IProps) {
+
+  const { activeKey, onCountChange } = props
   const [tasks, setTasks] = useState<TaskT[]>([])
   const [activeTaskKey, setActiveTaskKey] = useState('')
 
@@ -40,14 +41,14 @@ export default function TaskList(props:IProps) {
     getLatestList()
   }, [activeKey])
 
-  useEffect(()=>{
+  useEffect(() => {
     onCountChange?.()
-  },[tasks.length])
+  }, [tasks.length])
 
   //获取json数据
   const getLatestList = () => {
-    getApi(apiConfig.list.url,{
-      type:activeKey
+    getApi(apiConfig.list.url, {
+      type: activeKey
     }).then(res => {
       if (res.code === API_RESULT.SUCCESS) {
 
@@ -78,8 +79,8 @@ export default function TaskList(props:IProps) {
 
 
 
-  const handleCreate = ( newTask:TaskT) => {
-    
+  const handleCreate = (newTask: TaskT) => {
+
 
     //点击创建，创建成功的话直接提交到后端
     postApi(apiConfig.create.url, newTask).then((data: any) => {
@@ -98,11 +99,11 @@ export default function TaskList(props:IProps) {
 
 
   const handleFinish = (taskID: string) => {
-    const finishedTask=tasks.find((i)=>i.taskID===taskID)
-    handleModify(Object.assign({},finishedTask,{
-      status:activeKey===MENU_KEY.DOING  ?TASK_STATUS.DONE:TASK_STATUS.DOING,
-      
-      finishTime:activeKey===MENU_KEY.DOING  ?moment():''
+    const finishedTask = tasks.find((i) => i.taskID === taskID)
+    handleModify(Object.assign({}, finishedTask, {
+      status: activeKey === MENU_KEY.DOING ? TASK_STATUS.DONE : TASK_STATUS.DOING,
+
+      finishTime: activeKey === MENU_KEY.DOING ? moment() : ''
     }))
   }
 
@@ -110,7 +111,7 @@ export default function TaskList(props:IProps) {
     //点击创建，创建成功的话直接提交到后端
     postApi(apiConfig.remove.url, {
       taskID,
-      type:activeKey
+      type: activeKey
     }).then((res: any) => {
       //提交请求成功
       if (res.code === API_RESULT.SUCCESS) {
@@ -128,9 +129,9 @@ export default function TaskList(props:IProps) {
   }
 
   const handleModify = (values: TaskT) => {
-    postApi(apiConfig.update.url,{
+    postApi(apiConfig.update.url, {
       ...values,
-      type:activeKey
+      type: activeKey
     }).then((res: any) => {
       //提交请求成功
       if (res.code === API_RESULT.SUCCESS) {
@@ -149,26 +150,23 @@ export default function TaskList(props:IProps) {
 
   return (
     <div className='task-list'>
-     {
-       activeKey===MENU_KEY.DOING && <TaskCreator onCreate={handleCreate}/>
-
-     }
+      {activeKey === MENU_KEY.DOING && <TaskCreator onCreate={handleCreate} />}
       <div className='task-item_container'>
         {
           tasks.map(i => {
             return (<TaskItem
               key={i.title}
-              title={i.title}
-              endTime={i.endTime}
+              
+              task={i}
               onRemove={() => handleRemove(i.taskID)}
               onFinish={() => handleFinish(i.taskID)}
               onMore={() => setActiveTaskKey(i.taskID)}
               active={activeTaskKey === i.taskID} />)
           })
-          
+
         }
         {
-          !tasks.length &&<Empty description={activeKey===MENU_KEY.DOING?'暂无待办事项':'还没有完成的任务'}/>
+          !tasks.length && <Empty description={activeKey === MENU_KEY.DOING ? '暂无待办事项' : '还没有完成的任务'} />
         }
       </div>
       <TaskDetail
@@ -176,8 +174,6 @@ export default function TaskList(props:IProps) {
         onClose={() => setActiveTaskKey('')}
         onSubmit={handleModify}
       />
-
-
     </div>
   );
 }

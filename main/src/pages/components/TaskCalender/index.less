@@ -1,0 +1,42 @@
+.task-calendar{
+
+    &_container{
+        flex: 1;
+        background: #fcfcfc;
+        padding: 10px 20px;
+        // height: 500px;
+        margin: 0 30px 0px 10px;
+        border-radius: 4px;
+        box-shadow: 5px 5px 10px #d1d1d1,-5px -5px 10px #ffffff;
+
+        // .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content{
+        //     height: 50px;
+        // }
+       
+        #calendar{
+            height: 550px;
+            .tui-full-calendar-month{
+                min-height: 500px;
+                .tui-view-8{
+                    height:500px;
+                }
+            }
+        }
+    }
+    &_btns{
+        margin-bottom: 10px;
+        button:nth-child(1){
+            border-radius: 14px 0 0 14px;
+            border-right: none;
+        }
+        button:nth-child(2){
+            border-radius: 0px;
+            
+        }
+        button:nth-child(3){
+            border-radius: 0 14px 14px 0;
+            border-left: none;
+            
+        }
+    }
+}

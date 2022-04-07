@@ -1,3 +1,7 @@
+:root {
+  --mainColor: #2261e4;
+  --radius: 6px;
+}
 .page {
   width: 100vw;
   height: 100vh;

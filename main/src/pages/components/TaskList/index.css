@@ -1,15 +1,26 @@
 .task-list {
   flex: 1;
-  background: #fcfcfc;
-}
-.task-list > div:nth-child(1) {
-  margin-top: 60px;
 }
 .task-list .task-item {
   margin-bottom: 15px;
 }
 .task-list .task-item_container {
   overflow: auto;
-  padding: 10px 10px;
+  padding: 0px 30px 10px 10px;
   height: 500px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 16px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #fdfcfc;
+  border-radius: 10px;
+  background-color: #fdfcfc;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px #fdfcfc;
+  background-color: #747373;
 }

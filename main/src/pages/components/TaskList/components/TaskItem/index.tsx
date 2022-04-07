@@ -2,14 +2,13 @@ import './index.less'
 import moment from 'moment'
 import { TaskT } from '../..'
 import { useMemo } from 'react'
+import { TASK_STATUS } from '@/const'
 
 moment.locale('zh-CN')
 
 interface IProps {
-    title: string
-    // startTime:string 
+    task:TaskT,
 
-    endTime: moment.Moment
     active: boolean
     onMore: () => void
     onRemove:()=>void
@@ -18,8 +17,8 @@ interface IProps {
 }
 
 export default function TaskItem(props: IProps) {
-    const {onFinish, title,onRemove, endTime, active = false, onMore } = props
-    
+    const {onFinish,task,onRemove,  active = false, onMore } = props
+    const {endTime,title,status}=task
     const timeoutFlag=useMemo(()=>{
         // diff 比较截止时间-moment()时间，小于0，则超时。
         return endTime.diff(moment())<0
@@ -48,7 +47,7 @@ export default function TaskItem(props: IProps) {
                     <button
                      onClick={onFinish} 
                      className='task-item_finish-btn'>
-                        完成
+                        {status===TASK_STATUS.DOING?'完成':'重启'}
                     </button>
 
                     <button  

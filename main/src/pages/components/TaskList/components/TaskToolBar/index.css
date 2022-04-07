@@ -1,0 +1,27 @@
+.task-tool-bar {
+  padding: 10px 30px 10px 10px;
+}
+.task-tool-bar_content {
+  display: flex;
+  border-radius: 4px;
+  flex: 1 1;
+  padding: 10px 20px;
+  justify-content: flex-end;
+}
+.task-tool-bar .task-calendar-icon,
+.task-tool-bar .task-list-icon {
+  align-self: flex-end;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  width: 20px;
+  transition: all 0.4s;
+}
+.task-tool-bar .task-calendar-icon:hover,
+.task-tool-bar .task-list-icon:hover {
+  transform: scale(1.2);
+}
+.task-tool-bar .task-list-icon {
+  width: 21px;
+}

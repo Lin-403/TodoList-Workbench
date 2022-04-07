@@ -1,0 +1,31 @@
+.task-calendar_container {
+  flex: 1;
+  background: #fcfcfc;
+  padding: 10px 20px;
+  margin: 0 30px 0px 10px;
+  border-radius: 4px;
+  box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+}
+.task-calendar_container #calendar {
+  height: 550px;
+}
+.task-calendar_container #calendar .tui-full-calendar-month {
+  min-height: 500px;
+}
+.task-calendar_container #calendar .tui-full-calendar-month .tui-view-8 {
+  height: 500px;
+}
+.task-calendar_btns {
+  margin-bottom: 10px;
+}
+.task-calendar_btns button:nth-child(1) {
+  border-radius: 14px 0 0 14px;
+  border-right: none;
+}
+.task-calendar_btns button:nth-child(2) {
+  border-radius: 0px;
+}
+.task-calendar_btns button:nth-child(3) {
+  border-radius: 0 14px 14px 0;
+  border-left: none;
+}

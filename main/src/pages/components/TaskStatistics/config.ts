@@ -7,7 +7,7 @@ export const getConfig = (data: { name: string; value: number }[]) => {
         {
           name: '任务完成比',
           type: 'pie',
-          radius: ['30%', '55%'],
+          radius: ['40%', '70%'],
           avoidLabelOverlap: false,
           itemStyle: {
             borderRadius: 10,

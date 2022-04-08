@@ -257,4 +257,41 @@ router.get('/count', (req, res, next) => {
   })
 })
 
+
+router.get('/all', function (req, res, next) {
+  const dbPath = path.join(__dirname, '..', 'db');
+  const dbFileList = [`${dbPath}\\DOING.json`, `${dbPath}\\DONE.json`];
+  const result = {};
+  const allData = {}
+
+  fs.readFile(dbFileList[0], 'utf8', (err, data) => {
+    if (err) {
+      res.send({
+        data: [],
+        code: 0,
+        msg: err,
+      });
+      return;
+    }
+    result['doing'] = JSON.parse(data);
+
+    fs.readFile(dbFileList[1], 'utf8', (err, data) => {
+      if (err) {
+        res.send({
+          data: [],
+          code: 0,
+          msg: err,
+        });
+        return;
+      }
+      result['done'] = JSON.parse(data);
+
+      res.send({
+        data: result,
+        code: 1,
+        msg: '',
+      });
+    });
+  });
+});
 module.exports = router;

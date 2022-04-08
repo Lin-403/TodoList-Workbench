@@ -9,24 +9,14 @@ import { api } from '@/api';
 interface IProps{
   activeKey:number
   onChange:(key:number)=>void
-  updateFlag:number
+  countResult:Record<string,number>
 }
 
 export default function MainMenu(props:IProps) {
   // console.log(config)
-  const {onChange,activeKey,updateFlag}=props
-  const [countResult,setCountResult]=useState<Record<string,number>>({
-    doing:0,
-    done:0
-  })
-  useEffect(() => {
-    getCount()
-  }, [updateFlag])
-  const getCount=()=>{
-    api(apiConfig.count.url).then(res=>{
-      setCountResult(res.data)
-    })
-  }
+  const {onChange,activeKey,countResult}=props
+
+
 
   return (
     <div className='main-menu'>

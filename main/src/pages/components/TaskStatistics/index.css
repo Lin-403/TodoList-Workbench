@@ -1,0 +1,12 @@
+.chart-container {
+  width: 260px;
+  height: 260px;
+}
+.card-containers {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-containers .ant-statistic-title,
+.card-containers .ant-statistic-content {
+  color: white;
+}

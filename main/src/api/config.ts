@@ -15,6 +15,9 @@ const apiConfig={
     },
     count:{
         url:'/count',
+    },
+    all: {
+        url: '/all'
     }
 };
 

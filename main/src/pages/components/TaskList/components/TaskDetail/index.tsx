@@ -1,6 +1,6 @@
 
 import { Button, DatePicker, Drawer, Form, Input, message, Tag } from 'antd';
-import moment from 'moment';
+
 import { useMemo, useState } from 'react';
 import { TaskT } from '../..';
 import { quickTimeConfig } from '../../config';
@@ -45,7 +45,7 @@ export default function TaskDetail(props: IProps) {
             taskID:task.taskID ||'',
             desc:values.desc ||task.desc,
             title:realTitle,
-            startTime:task.startTime||'',
+            startTime:values.startTime ||task.startTime,
             endTime:values.endTime ||task.endTime,
             status:task.status,
             finishTime:task.finishTime||''
@@ -72,16 +72,26 @@ export default function TaskDetail(props: IProps) {
             name='basic' 
             autoComplete='off' 
             onFinish={handleSubmit}
+            onFinishFailed={handleSubmit}
             style={{marginTop:'35px'}}
             >
+                <div className='form-item_container'>
+                    <div className='form-item_icon'>开始日期</div>
+                    <div className='form-item_comp'>
+                        <Form.Item name="startTime">
+                            <QuickDatePicker />
+                        </Form.Item>
+                    </div>
+               </div>
                <div className='form-item_container'>
-                    <div className='form-item_icon'>213</div>
+                    <div className='form-item_icon'>截止日期</div>
                     <div className='form-item_comp'>
                         <Form.Item name="endTime">
                             <QuickDatePicker />
                         </Form.Item>
                     </div>
                </div>
+
                <div className='form-item_container'>
                     <div className='form-item_icon'>描述</div>
                     <div className='form-item_comp'>

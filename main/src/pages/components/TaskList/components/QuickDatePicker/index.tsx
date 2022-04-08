@@ -1,45 +1,44 @@
+import { DatePicker, Tag } from 'antd';
+import moment from 'moment';
+import { useState } from 'react';
+import { quickTimeConfig } from '../../config';
+import './index.less';
 
-import { DatePicker, Tag } from 'antd'
-import moment from 'moment'
-import { useState } from 'react'
-import { quickTimeConfig } from '../../config'
-import './index.less'
-//定义一个接口规范props的类型
 interface IProps {
-    value?: moment.Moment
-    onChange?: (v: moment.Moment) => void
+  value?: moment.Moment;
+  onChange?: (v: moment.Moment) => void;
 }
 
 export default function QuickDatePicker(props: IProps) {
-    const { value, onChange } = props
-    // const [open,setOpen]=useState(false)
-    const handleQuickCreate = (offset: number) => {
-        const d = new Date()
-        const time = d.toISOString().split('T')[0] + 'T10:00:00.000Z'
-        let momentTime = moment(time).add(offset, 'd') //.format('Y-M-D HH:mm:ss');
-        onChange?.(momentTime)
-    }
+  const { value, onChange } = props;
 
-    return (
-        <div className='time-tags'>
-            
-            <DatePicker
-                placeholder='选择任务截止日期'
-                showTime 
-                onOk={onChange}
-                value={value}
-                size="small"
-            />
-            {
-                quickTimeConfig.map(i => (
-                    <Tag color={i.color}
-                        key={i.offset}
-                        onClick={() => {
-                            handleQuickCreate(i.offset)
-                        }}
-                    >{i.title}</Tag>
-                ))
-            }
-        </div>
-    )
+  const handleQuickCreate = (offset: number) => {
+    const d = new Date();
+    const time = d.toISOString().split('T')[0] + 'T10:00:00.000Z';
+    let momentTime = moment(time).add(offset, 'd'); // .format('Y-M-D HH:mm:ss')
+    onChange?.(momentTime);
+  };
+
+  return (
+    <div className="time-tags">
+      <DatePicker
+        showTime
+        onOk={onChange}
+        placeholder="选择任务截止日期"
+        value={value}
+        size="small"
+      />
+      {quickTimeConfig.map((i) => (
+        <Tag
+          key={i.offset}
+          color={i.color}
+          onClick={() => {
+            handleQuickCreate(i.offset);
+          }}
+        >
+          {i.title}
+        </Tag>
+      ))}
+    </div>
+  );
 }

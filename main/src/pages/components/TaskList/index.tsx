@@ -20,7 +20,7 @@ export type TaskT = {
   taskID: string
   title: string
   desc: string
-  startTime: moment.Moment;
+  startTime: moment.Moment
   endTime: moment.Moment
   status: number
   finishTime: moment.Moment | ''
@@ -55,7 +55,8 @@ export default function TaskList(props: IProps) {
         const latestTasks = res.data.map((i: TaskT) => {
           // const momentDDL=moment(i.endTime)
           return Object.assign(i, {
-            endTime: moment(i.endTime)
+            endTime: moment(i.endTime),
+            startTime: moment(i.startTime),
           })
         })
         // console.log(latestTasks)
@@ -74,6 +75,7 @@ export default function TaskList(props: IProps) {
   // }
 
   const activeTask = useMemo(() => {
+    console.log(tasks.find(i => i.taskID === activeTaskKey))
     return tasks.find(i => i.taskID === activeTaskKey)
   }, [tasks, activeTaskKey])
 
@@ -156,7 +158,7 @@ export default function TaskList(props: IProps) {
           tasks.map(i => {
             return (<TaskItem
               key={i.title}
-              
+
               task={i}
               onRemove={() => handleRemove(i.taskID)}
               onFinish={() => handleFinish(i.taskID)}

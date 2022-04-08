@@ -9,10 +9,11 @@
   width: 100%;
 }
 .task-detail .form-item_icon {
-  width: 50px;
+  width: 65px;
 }
 .task-detail .form-item_comp {
   flex: 1;
+  margin-bottom: 15px;
 }
 .task-detail .submit-btn {
   width: 100%;

@@ -23,10 +23,12 @@ import { getLocal, saveLocal } from '@/utils';
 interface IProps { }
 
 const DEFAULT_LAYOUT= [
-  { i: "todaysRemain", x: 0, y: 0, w: 2.5, h: 3,minW: 2, minH: 2.5 },
-  { i: "todaysFinished", x: 1, y: 0, w: 2.5, h: 3,minW: 2, minH: 2.5 },
-  { i: "allFinished", x: 2, y: 1, w: 2.5, h: 3,minW: 2, minH: 2.5 },
-  { i: "finishedRadio", x: 4, y: 0, w: 2.5, h: 6, minW: 2, minH: 6 },
+  { i: "allRemain", x: 2, y: 1, w: 4, h: 3,minW: 4, minH: 3 },
+  { i: "todaysRemain", x: 0, y: 0, w: 4, h: 3,minW: 4, minH: 3 },
+  { i: "todaysFinished", x: 1, y: 0, w: 4, h: 3,minW: 4, minH: 3 },
+  { i: "allFinished", x: 2, y: 1, w: 4, h: 3,minW: 4, minH: 3 },
+
+  { i: "finishedRadio", x: 4, y: 0, w: 5, h: 6, minW: 4, minH: 6 },
 
 ];
 
@@ -48,7 +50,20 @@ export default function TaskStatistics(props: IProps) {
   }, []);
 
   const todaysRemain = useMemo(() => {
-    return allData?.doing.length;
+    const today = new Date().toISOString().split('T')[0];
+    return allData?.doing.filter((i) =>
+    moment(i.endTime.split('T')[0]).isSame(moment(today)),
+  ).length;
+  }, [allData]);
+
+  const allRemain = useMemo(() => {
+    // console.log(new Date().toISOString(),'55555')
+    //2022-04-08T08:38:18.748Z
+  //   const today = new Date().toISOString().split('T')[0];
+  //   return allData?.doing.filter((i) =>
+  //   moment(i.startTime.split('T')[0]).isBefore(moment(today)),
+  // ).length;
+      return allData?.doing.length;
   }, [allData]);
 
   const todaysFinished = useMemo(() => {
@@ -108,7 +123,17 @@ export default function TaskStatistics(props: IProps) {
         key:"todaysRemain",
         content:()=>(
           <div style={{ margin: '0px auto 0px 10px' }}>
-          <Statistic title="今日剩余任务量" value={todaysRemain} />
+          <Statistic title="今日截止任务量" value={todaysRemain} />
+          </div>
+        ),
+      },
+      {
+        theme:'pinkBlue',
+        title:'任务完成量',
+        key:"allRemain",
+        content:()=>(
+          <div style={{ margin: '0px auto 0px 10px' }}>
+          <Statistic title="总剩余任务量" value={allRemain} />
           </div>
         ),
       },
@@ -145,7 +170,7 @@ export default function TaskStatistics(props: IProps) {
       <GridLayout
         className="layout"
         layout={layout}
-        cols={12}
+        cols={22}
         rowHeight={30}
         width={1100}
         onLayoutChange={handleLayoutChange}

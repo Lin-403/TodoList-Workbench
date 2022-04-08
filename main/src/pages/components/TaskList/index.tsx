@@ -7,7 +7,6 @@ import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 
 import { PlusIcon } from '@/components/Icon';
-import TaskDetail from './components/TaskDetail';
 import QuickDatePicker from './components/QuickDatePicker';
 import apiConfig from '@/api/config';
 moment.suppressDeprecationWarnings = true;
@@ -57,6 +56,7 @@ export default function TaskList(props: IProps) {
           return Object.assign(i, {
             endTime: moment(i.endTime),
             startTime: moment(i.startTime),
+            finishTime:i.finishTime?moment(i.finishTime):'',
           })
         })
         // console.log(latestTasks)
@@ -69,15 +69,9 @@ export default function TaskList(props: IProps) {
 
     })
   }
-  // const onChange = (value: any, dateString: string) => {
-  //   console.log('Selected Time: ', value);
-  //   console.log('Formatted Selected Time: ', dateString);
-  // }
 
-  const activeTask = useMemo(() => {
-    console.log(tasks.find(i => i.taskID === activeTaskKey))
-    return tasks.find(i => i.taskID === activeTaskKey)
-  }, [tasks, activeTaskKey])
+
+
 
 
 
@@ -158,12 +152,12 @@ export default function TaskList(props: IProps) {
           tasks.map(i => {
             return (<TaskItem
               key={i.title}
-
+              onSubmit={handleModify}
               task={i}
               onRemove={() => handleRemove(i.taskID)}
               onFinish={() => handleFinish(i.taskID)}
               onMore={() => setActiveTaskKey(i.taskID)}
-              active={activeTaskKey === i.taskID} />)
+              active={false} />)
           })
 
         }
@@ -171,11 +165,7 @@ export default function TaskList(props: IProps) {
           !tasks.length && <Empty description={activeKey === MENU_KEY.DOING ? '暂无待办事项' : '还没有完成的任务'} />
         }
       </div>
-      <TaskDetail
-        task={activeTask}
-        onClose={() => setActiveTaskKey('')}
-        onSubmit={handleModify}
-      />
+
     </div>
   );
 }

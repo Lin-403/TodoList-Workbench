@@ -1,5 +1,4 @@
 .time-tags {
-  position: absolute;
   bottom: 10px;
   width: calc(100% - 20px);
   display: flex;

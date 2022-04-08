@@ -1,10 +1,10 @@
 .task-item {
   position: relative;
-  height: 80px;
   padding: 10px;
   border-radius: 2px;
   align-items: center;
   display: flex;
+  flex-direction: column;
   cursor: pointer;
   transition: all 0.4s;
   border-radius: 4px;
@@ -14,12 +14,60 @@
 .task-item:hover {
   box-shadow: 0 0 2px 2px #c7c5c5ad;
 }
-.task-item--active {
-  background: #F0F2FD;
+.task-item_main {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #e2e2e2;
+  padding-bottom: 5px;
 }
-.task-item_date {
+.task-item_detail {
+  display: flex;
+  width: 100%;
+  padding-top: 5px;
+}
+.task-item_editor {
   display: flex;
   align-items: center;
+  width: 100%;
+  padding-top: 5px;
+}
+.task-item_editor form {
+  width: 80%;
+}
+.task-item_editor .form-item_container {
+  display: flex;
+  margin-bottom: 20px;
+}
+.task-item_editor .form-item_container .time-tags {
+  flex-wrap: wrap;
+}
+.task-item_editor .form-item_container .time-tags .ant-picker {
+  margin-bottom: 8px;
+  width: 100%;
+}
+.task-item_editor .form-item_icon {
+  width: 65px;
+  margin-left: 20%;
+  margin-right: 20px;
+}
+.task-item_editor .form-item_comp {
+  flex: 1;
+}
+.task-item_editor .form-item_comp .ant-form-item {
+  margin-bottom: 0;
+}
+.task-item_editor .ant-form-item-control-input-content {
+  display: flex;
+  align-items: center;
+}
+.task-item_editor .submit-btn {
+  width: 200px;
+  margin-left: 20%;
+  border-radius: var(--radius);
+  width: 100%;
+}
+.task-item--active {
+  background: #F0F2FD;
 }
 .task-item_info {
   display: flex;
@@ -42,6 +90,17 @@
 }
 .task-item_desc {
   color: #7e7e7e;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  border-right: 1px solid #e2e2e2;
+  padding: 0 4px;
+}
+.task-item_desc label {
+  margin-right: 4px;
+}
+.task-item_desc:last-child {
+  border-right: none;
 }
 .task-item_status {
   display: flex;
@@ -61,14 +120,32 @@
   border: none;
   background: #3a77ff;
   color: white;
-  border-radius: 3px;
+  border-radius: var(--radius);
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .task-item_del-btn {
   border: none;
   background: #e7f4ff;
-  color: #3a77ff;
-  border-radius: 3px;
+  color: var(--mainColor);
+  border-radius: var(--radius);
   cursor: pointer;
+}
+.task-item_open {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+}
+.task-item_open-btn {
+  border: none;
+  width: 100px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0px;
+  background-color: transparent;
+  padding-left: 10%;
 }

@@ -17,9 +17,10 @@
   height: 90px;
 }
 .add-task-container .create-input {
-  position: absolute;
-  top: 10px;
   width: calc(100% - 20px);
+}
+.add-task-container .time-tags {
+  margin-top: 10px;
 }
 .operation-btns {
   position: absolute;

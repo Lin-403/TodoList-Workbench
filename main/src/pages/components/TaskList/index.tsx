@@ -26,16 +26,29 @@ export type TaskT = {
 }
 
 interface IProps {
+  sort:string,
   activeKey: number,
   onCountChange: () => void
 }
 
 export default function TaskList(props: IProps) {
 
-  const { activeKey, onCountChange } = props
+  const { activeKey, onCountChange,sort } = props
   const [tasks, setTasks] = useState<TaskT[]>([])
   const [activeTaskKey, setActiveTaskKey] = useState('')
+  
+  const sortedTasks=useMemo<TaskT[]>(()=>{
+     return [...tasks].sort((a:TaskT,b:TaskT)=>{
+      if(sort==='sort-start'){
+        return a.startTime.diff(b.startTime)
+      }else if(sort==='sort-end'){
+        return a.endTime.diff(b.endTime)
 
+      }else {
+        return 0
+      }
+    })
+  },[tasks,sort])
   useEffect(() => {
     getLatestList()
   }, [activeKey])
@@ -149,7 +162,7 @@ export default function TaskList(props: IProps) {
       {activeKey === MENU_KEY.DOING && <TaskCreator onCreate={handleCreate} />}
       <div className='task-item_container'>
         {
-          tasks.map(i => {
+          sortedTasks.map(i => {
             return (<TaskItem
               key={i.title}
               onSubmit={handleModify}

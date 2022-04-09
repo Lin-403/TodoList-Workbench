@@ -8,8 +8,7 @@
   padding: 10px 20px;
   justify-content: flex-end;
 }
-.task-tool-bar .task-calendar-icon,
-.task-tool-bar .task-list-icon {
+.task-tool-bar .task-tool-icon {
   align-self: flex-end;
   cursor: pointer;
   display: flex;
@@ -18,8 +17,7 @@
   width: 20px;
   transition: all 0.4s;
 }
-.task-tool-bar .task-calendar-icon:hover,
-.task-tool-bar .task-list-icon:hover {
+.task-tool-bar .task-tool-icon:hover {
   transform: scale(1.2);
 }
 .task-tool-bar .task-list-icon {

@@ -32,14 +32,9 @@ export const ChartIcon = (props: IProps) => {
     return (<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 24C5 34.4934 13.5066 43 24 43V26C24 24.8954 24.8954 24 26 24H43C43 13.5066 34.4934 5 24 5C13.5066 5 5 13.5066 5 24Z" fill="none" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><rect x="30" y="30" width="12" height="12" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/></svg>)
   }
 
-  export const DownOpenIcon = () => {
-
-    const color = '#2261e4'
-    return (<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="white" fillOpacity="0.01"/><path d="M36 12L24 24L12 12" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><path d="M36 24L24 36L12 24" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/></svg>)
-  }
-
-  export const UpOpenIcon =() => {
-
-    const color =  '#2261e4'
-    return (<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="white" fillOpacity="0.01"/><path d="M12 24L24 12L36 24" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 36L24 24L36 36" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/></svg>)
+  
+  export const SortIcon = (props: IProps) => {
+    const { active = false } = props
+    const color = active ? '#FFF' : '#2261e4'
+    return (<svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="white" fillOpacity="0.01"/><path d="M19 6L19 42" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 17.8995L19 5.89949" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><path d="M29 42.1005L29 6.10051" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/><path d="M29 42.1005L41 30.1005" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/></svg>)
   }

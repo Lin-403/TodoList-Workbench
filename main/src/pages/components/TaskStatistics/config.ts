@@ -75,19 +75,19 @@ export const getGaugeConfig=(value:number)=>{
           splitNumber: 2,
           lineStyle: {
             width: 1,
-            color: '#999'
+            color: '#333'
           }
         },
         splitLine: {
           length: 10,
           lineStyle: {
             width: 2,
-            color: '#999'
+            color: '#333'
           }
         },
         axisLabel: {
           distance: 18,
-          color: '#999',
+          color: '#333',
           fontSize: 10
         },
         title: {

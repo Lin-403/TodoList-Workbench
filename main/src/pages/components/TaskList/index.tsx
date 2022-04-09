@@ -12,7 +12,10 @@ moment.suppressDeprecationWarnings = true;
 import { api, getApi, postApi } from '@/api/index'
 import { API_RESULT, MENU_KEY, TASK_STATUS, VIEW_MODE } from '@/const';
 import TaskCreator from './components/TaskCreator';
+import TaskToolBar from './TaskToolBar';
+import { getLocal, saveLocal } from '@/utils';
 
+const SORT_LOCAL_KEY='todo-sort'
 
 export type TaskT = {
   taskID: string
@@ -25,29 +28,30 @@ export type TaskT = {
 }
 
 interface IProps {
-  sort:string,
   activeKey: number,
   onCountChange: () => void
 }
 
 export default function TaskList(props: IProps) {
 
-  const { activeKey, onCountChange,sort } = props
+  const { activeKey, onCountChange,  } = props
   const [tasks, setTasks] = useState<TaskT[]>([])
   const [activeTaskKey, setActiveTaskKey] = useState('')
-  
-  const sortedTasks=useMemo<TaskT[]>(()=>{
-     return [...tasks].sort((a:TaskT,b:TaskT)=>{
-      if(sort==='sort-start'){
+  const [sort,setSort]=useState(getLocal(SORT_LOCAL_KEY,'sort-start'))
+  const [filter,setFilter]=useState('')
+
+  const sortedTasks = useMemo<TaskT[]>(() => {
+    return [...tasks].sort((a: TaskT, b: TaskT) => {
+      if (sort === 'sort-start') {
         return a.startTime.diff(b.startTime)
-      }else if(sort==='sort-end'){
+      } else if (sort === 'sort-end') {
         return a.endTime.diff(b.endTime)
 
-      }else {
+      } else {
         return 0
       }
     })
-  },[tasks,sort])
+  }, [tasks, sort])
   useEffect(() => {
     getLatestList()
   }, [activeKey])
@@ -68,7 +72,7 @@ export default function TaskList(props: IProps) {
           return Object.assign(i, {
             endTime: moment(i.endTime),
             startTime: moment(i.startTime),
-            finishTime:i.finishTime?moment(i.finishTime):'',
+            finishTime: i.finishTime ? moment(i.finishTime) : '',
           })
         })
         // console.log(latestTasks)
@@ -81,15 +85,16 @@ export default function TaskList(props: IProps) {
 
     })
   }
-
-
-
-
-
+ 
+  const filteredTasks=useMemo<TaskT[]>(()=>{
+     if(filter){
+       return sortedTasks.filter(i=>i.title.includes(filter))
+     }else {
+       return sortedTasks;
+     }
+  },[sortedTasks,filter])
 
   const handleCreate = (newTask: TaskT) => {
-
-
     //点击创建，创建成功的话直接提交到后端
     postApi(apiConfig.create.url, newTask).then((data: any) => {
       //提交请求成功
@@ -101,16 +106,12 @@ export default function TaskList(props: IProps) {
       console.log(e)
     })
 
-
   }
-
-
 
   const handleFinish = (taskID: string) => {
     const finishedTask = tasks.find((i) => i.taskID === taskID)
     handleModify(Object.assign({}, finishedTask, {
       status: activeKey === MENU_KEY.DOING ? TASK_STATUS.DONE : TASK_STATUS.DOING,
-
       finishTime: activeKey === MENU_KEY.DOING ? moment() : ''
     }))
   }
@@ -129,7 +130,6 @@ export default function TaskList(props: IProps) {
       else {
         message.error(res.msg)
       }
-
     }).catch((e: any) => {
       //提交请求失败
       console.log(e)
@@ -157,27 +157,40 @@ export default function TaskList(props: IProps) {
   }
 
   return (
-    <div className='task-list'>
-      {activeKey === MENU_KEY.DOING && <TaskCreator onCreate={handleCreate} />}
-      <div className='task-item_container'>
-        {
-          sortedTasks.map(i => {
-            return (<TaskItem
-              key={i.title}
-              onSubmit={handleModify}
-              task={i}
-              onRemove={() => handleRemove(i.taskID)}
-              onFinish={() => handleFinish(i.taskID)}
-              onMore={() => setActiveTaskKey(i.taskID)}
-              active={false} />)
-          })
+    <>
+      <TaskToolBar tasks={sortedTasks} onClick={(key)=>{
+        setSort(key)
+        saveLocal(SORT_LOCAL_KEY,key)
+      }} onSearch={(v)=>{
+        console.log(v)
+        setFilter(v)
+      }
+        
+      } />
 
-        }
-        {
-          !tasks.length && <Empty description={activeKey === MENU_KEY.DOING ? '暂无待办事项' : '还没有完成的任务'} />
-        }
+      <div className='task-list'>
+        {activeKey === MENU_KEY.DOING && <TaskCreator onCreate={handleCreate} />}
+        <div className='task-item_container'>
+          {
+            
+           filteredTasks.map(i => {
+              return (<TaskItem
+                key={i.title}
+                onSubmit={handleModify}
+                task={i}
+                onRemove={() => handleRemove(i.taskID)}
+                onFinish={() => handleFinish(i.taskID)}
+                onMore={() => setActiveTaskKey(i.taskID)}
+                active={false} />)
+            })
+
+          }
+          {
+            !tasks.length && <Empty description={activeKey === MENU_KEY.DOING ? '暂无待办事项' : '还没有完成的任务'} />
+          }
+        </div>
+
       </div>
-
-    </div>
+    </>
   );
 }

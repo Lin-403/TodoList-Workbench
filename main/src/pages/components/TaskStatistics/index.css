@@ -10,6 +10,10 @@
 .card-containers .ant-statistic-content {
   color: white;
 }
+canvas {
+  height: 300px;
+  width: 300px;
+}
 .card-container {
   border-radius: var(--radius);
   display: flex;
@@ -69,5 +73,12 @@
   background-image: linear-gradient(225deg, #A9C9FF 0%, #FFBBEC 100%);
 }
 .card-theme_pinkBlue .card-container_title {
+  color: white;
+}
+.card-theme_yibiaopan {
+  background-color: #aaefe6;
+  background-image: linear-gradient(45deg, #aaefe6 0%, #8394e9 100%);
+}
+.card-theme_yibiaopan .card-container_title {
   color: white;
 }

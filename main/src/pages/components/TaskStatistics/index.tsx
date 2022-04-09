@@ -6,7 +6,7 @@ import { API_RESULT } from '@/const';
 
 import * as ec from 'echarts';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getConfig } from './config';
+import { getConfig ,getGaugeConfig} from './config';
 // @ts-nocheck  
 import GridLayout from "react-grid-layout";
 
@@ -28,6 +28,7 @@ const DEFAULT_LAYOUT= [
   { i: "allFinished", x: 2, y: 1, w: 4, h: 3,minW: 4, minH: 3 },
 
   { i: "finishedRadio", x: 4, y: 0, w: 5, h: 6, minW: 4, minH: 6 },
+  { i: "finishedProgress", x: 4, y: 0, w: 6, h: 7,minW: 6, minH: 7  },
 
 ];
 
@@ -37,7 +38,7 @@ export default function TaskStatistics(props: IProps) {
   const [allData, setAllData] = useState<{ doing: any[]; done: any[] }>();
   const [layout,setLayout]=useState<GridLayout.Layout[]>(getLocal(LAYOUT_LOCAL_KEY,DEFAULT_LAYOUT))
 
-  const chartRef = useRef<ec.EChartsType>();
+  const chartRefs = useRef<Record<string,ec.EChartsType>>({});
 
   useEffect(() => {
     api(apiConfig.all.url).then((res) => {
@@ -71,28 +72,41 @@ export default function TaskStatistics(props: IProps) {
   }, [allData]);
 
   useEffect(() => {
-    const dom = document.getElementById('task-chart');
-    if (dom) {
-      const myChart = ec.init(dom);
-      chartRef.current = myChart;
-    }
+    const ids=['task-chart','task-guage-chart']
+    const radioDom = document.getElementById('task-chart');
+    ids.forEach(i=>{
+      const dom =document.getElementById(i)
+      if(dom && chartRefs.current){
+        const chart=ec.init(dom);
+        chartRefs.current[i]=chart
+      }
+    })
   }, []);
 
   useEffect(() => {
-    if (chartRef.current && allData) {
-      const dataSource = [
-        {
-          name: '进行中',
-          value: allData.doing.length,
-        },
-        {
-          name: '已完成',
-          value: allData.done.length,
-        },
-      ];
-      const option = getConfig(dataSource);
-      chartRef.current.setOption(option);
+    if(allData){
+      if(chartRefs.current?.['task-chart']){
+        const chartObj=chartRefs.current['task-chart']
+        const dataSource = [
+          {
+            name: '进行中',
+            value: allData.doing.length,
+          },
+          {
+            name: '已完成',
+            value: allData.done.length,
+          },
+        ];
+        const option = getConfig(dataSource);
+        chartObj.setOption(option);
+      }
+      if(chartRefs.current?.['task-guage-chart']&& todaysRemain!==undefined && todaysFinished!==undefined){
+        const chartObj=chartRefs.current['task-guage-chart']
+        const option = getGaugeConfig(todaysFinished / (todaysRemain+todaysFinished)*100);
+        chartObj.setOption(option);
+      }
     }
+
   }, [allData]);
 
 
@@ -108,6 +122,14 @@ export default function TaskStatistics(props: IProps) {
         key:"finishedRadio",
         content:()=>(
           <div id="task-chart" className="chart-container"></div>
+        ),
+      },
+      {
+        theme:'yibiaopan',
+        title:'任务完成进度',
+        key:"finishedProgress",
+        content:()=>(
+          <div id="task-guage-chart" className="chart-container"></div>
         ),
       },
       {

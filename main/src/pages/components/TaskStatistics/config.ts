@@ -1,5 +1,6 @@
 export const getConfig = (data: { name: string; value: number }[]) => {
     const option = {
+      color:['#FBBCED','#959AE2','#BCFCFB','#FF7489','#9DFEAF'],
       tooltip: {
         trigger: 'item',
       },
@@ -7,10 +8,10 @@ export const getConfig = (data: { name: string; value: number }[]) => {
         {
           name: '任务完成比',
           type: 'pie',
-          radius: ['40%', '70%'],
+          radius: ['40%', '75%'],
           avoidLabelOverlap: false,
           itemStyle: {
-            borderRadius: 10,
+            borderRadius: 5,
             borderColor: '#fff',
             borderWidth: 2,
           },

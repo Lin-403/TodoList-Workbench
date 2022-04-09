@@ -6,7 +6,6 @@ import { Button, Calendar, Empty, Input, message } from 'antd'
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 
-import { PlusIcon } from '@/components/Icon';
 import QuickDatePicker from './components/QuickDatePicker';
 import apiConfig from '@/api/config';
 moment.suppressDeprecationWarnings = true;

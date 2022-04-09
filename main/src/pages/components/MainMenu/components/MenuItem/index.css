@@ -19,14 +19,17 @@
   background: #eee;
 }
 .menu-item--active {
-  background: var(--mainColor);
+  background-image: var(--mainLinearGradient);
   position: relative;
+  box-shadow: 2px 2px 6px 2px #e3e1e1db;
+  transition: box-shadow 0.2s;
 }
 .menu-item--active .menu-item_name {
   color: white;
 }
 .menu-item--active:hover {
-  background: var(--mainColor);
+  box-shadow: 0px 0 2px 2px #e3e1e1db;
+  background-image: var(--mainLinearGradientHover);
 }
 .menu-item_count {
   position: absolute;

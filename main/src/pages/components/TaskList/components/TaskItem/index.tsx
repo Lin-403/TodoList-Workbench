@@ -3,7 +3,6 @@ import moment from 'moment'
 import { TaskT } from '../..'
 import { useMemo, useState } from 'react'
 import { TASK_STATUS } from '@/const'
-import { DownOpenIcon, UpOpenIcon } from '@/components/Icon'
 import { Button, Form, Input } from 'antd'
 import QuickDatePicker from '../QuickDatePicker'
 

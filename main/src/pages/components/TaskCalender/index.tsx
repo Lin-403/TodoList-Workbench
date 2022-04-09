@@ -84,7 +84,7 @@ export default function TaskCalendar(props: IProps) {
                 // end: '2022-04-19T17:31:00+09:00',
                 start: i.startTime.toISOString().split('.')[0]+'Z',
                 end: i.endTime.toISOString().split('.')[0]+'Z',
-                bgColor: '#2261e4',
+                bgColor: '#8BC6EC',
                 color:'white',
                 borderColor:'#204df8',
                 isReadOnly: true    // schedule is read-only

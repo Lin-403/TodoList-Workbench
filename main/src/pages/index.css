@@ -1,6 +1,8 @@
 :root {
-  --mainColor: #2261e4;
+  --mainColor: #43a9ec;
   --radius: 6px;
+  --mainLinearGradient: linear-gradient(45deg, #8BC6EC 0%, #9599E2 100%);
+  --mainLinearGradientHover: linear-gradient(180deg, #8BC6EC 0%, #9599E2 100%);
 }
 .page {
   width: 100vw;

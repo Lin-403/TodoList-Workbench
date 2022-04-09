@@ -38,7 +38,7 @@ export default function TaskCreator(props: IProps) {
     return (
         <div className={`add-task-container ${isCreate ? 'add-task-container--active' : ''}`}>
             <div className='standard-container create-input'>
-                <PlusIcon />
+                <PlusIcon active={false}/>
                 <Input
                     onFocus={() => { setIsCreate(true) }}
                     // onBlur={()=>{setIsCreate(false)}}

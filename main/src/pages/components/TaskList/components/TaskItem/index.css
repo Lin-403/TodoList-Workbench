@@ -64,6 +64,7 @@
   width: 200px;
   margin-left: 20%;
   border-radius: var(--radius);
+  background-color: var(--mainColor);
   width: 100%;
 }
 .task-item--active {
@@ -108,7 +109,7 @@
   width: 100px;
 }
 .task-item_ddl {
-  color: hsl(244, 85%, 45%);
+  color: var(--mainColor);
   background: #e7f4ff;
 }
 .task-item_timeout {
@@ -118,7 +119,7 @@
 }
 .task-item_finish-btn {
   border: none;
-  background: #3a77ff;
+  background: var(--mainColor);
   color: white;
   border-radius: var(--radius);
   cursor: pointer;

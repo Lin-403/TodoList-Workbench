@@ -2,7 +2,6 @@
 
 import { api } from '@/api';
 import apiConfig from '@/api/config';
-import CardContainer from '@/components/CardContainer';
 import { API_RESULT } from '@/const';
 
 import * as ec from 'echarts';
@@ -57,12 +56,6 @@ export default function TaskStatistics(props: IProps) {
   }, [allData]);
 
   const allRemain = useMemo(() => {
-    // console.log(new Date().toISOString(),'55555')
-    //2022-04-08T08:38:18.748Z
-  //   const today = new Date().toISOString().split('T')[0];
-  //   return allData?.doing.filter((i) =>
-  //   moment(i.startTime.split('T')[0]).isBefore(moment(today)),
-  // ).length;
       return allData?.doing.length;
   }, [allData]);
 

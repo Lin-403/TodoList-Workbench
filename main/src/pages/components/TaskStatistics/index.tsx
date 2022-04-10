@@ -12,7 +12,6 @@ import GridLayout from "react-grid-layout";
 
 import moment from 'moment';
 
-import { Statistic } from 'antd';
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 
@@ -26,6 +25,7 @@ const DEFAULT_LAYOUT= [
   { i: "todaysRemain", x: 0, y: 0, w: 4, h: 3,minW: 4, minH: 3 },
   { i: "todaysFinished", x: 1, y: 0, w: 4, h: 3,minW: 4, minH: 3 },
   { i: "allFinished", x: 2, y: 1, w: 4, h: 3,minW: 4, minH: 3 },
+  { i: "outdatedCount", x: 3, y: 1, w: 4, h: 3,minW: 4, minH: 3 },
 
   { i: "finishedRadio", x: 4, y: 0, w: 5, h: 6, minW: 4, minH: 6 },
   { i: "finishedProgress", x: 4, y: 0, w: 6, h: 7,minW: 6, minH: 7  },
@@ -53,6 +53,13 @@ export default function TaskStatistics(props: IProps) {
     const today = new Date().toISOString().split('T')[0];
     return allData?.doing.filter((i) =>
     moment(i.endTime.split('T')[0]).isSame(moment(today)),
+  ).length;
+  }, [allData]);
+
+  const outdatedCount = useMemo(() => {
+    const today = new Date().toISOString().split('T')[0];
+    return allData?.doing.filter((i) =>
+    moment(i.endTime.split('T')[0]).isBefore(moment(today)),
   ).length;
   }, [allData]);
 
@@ -102,7 +109,8 @@ export default function TaskStatistics(props: IProps) {
       }
       if(chartRefs.current?.['task-guage-chart']&& todaysRemain!==undefined && todaysFinished!==undefined){
         const chartObj=chartRefs.current['task-guage-chart']
-        const option = getGaugeConfig(todaysFinished / (todaysRemain+todaysFinished)*100);
+        const prop=todaysFinished / (todaysRemain+todaysFinished)*100
+        const option = getGaugeConfig(isNaN(prop)?0:prop);
         chartObj.setOption(option);
       }
     }
@@ -134,41 +142,56 @@ export default function TaskStatistics(props: IProps) {
       },
       {
         theme:'green',
-        title:'任务完成量',
+        title:'今日截止任务量',
         key:"todaysRemain",
         content:()=>(
-          <div style={{ margin: '0px auto 0px 10px' }}>
-          <Statistic title="今日截止任务量" value={todaysRemain} />
+          <div className='statistic-card'>
+            {todaysRemain}
+          {/* <Statistic title="今日截止任务量" value={todaysRemain} /> */}
+          </div>
+        ),
+      },
+      {
+        theme:'yijiezhi',
+        title:'已截止任务量',
+        key:"outdatedCount",
+        content:()=>(
+          <div className='statistic-card'>
+            {outdatedCount}
+          {/* <Statistic title="今日截止任务量" value={todaysRemain} /> */}
           </div>
         ),
       },
       {
         theme:'pinkBlue',
-        title:'任务完成量',
+        title:'总剩余任务量',
         key:"allRemain",
         content:()=>(
-          <div style={{ margin: '0px auto 0px 10px' }}>
-          <Statistic title="总剩余任务量" value={allRemain} />
+          <div className='statistic-card'>
+            {allRemain}
+          {/* <Statistic title="总剩余任务量" value={allRemain} /> */}
           </div>
         ),
       },
       {
         theme:'pinkBlueGreen',
-        title:'任务完成量',
+        title:'今日已完成任务量',
         key:"todaysFinished",
         content:()=>(
-          <div style={{ margin: '0px auto 0px 10px' }}>
-            <Statistic title="今日已完成任务量" value={todaysFinished} />
+          <div className='statistic-card'>
+            {todaysFinished}
+            {/* <Statistic title="今日已完成任务量" value={todaysFinished} /> */}
           </div>
         ),
       },
       {
         theme:'bluePink',
-        title:'任务完成量',
+        title:'累计已完成任务量',
         key:"allFinished",
         content:()=>(
-          <div style={{ margin: '0px auto 0px 10px' }}>
-          <Statistic title="累计已完成任务量" value={allFinished} />
+          <div className='statistic-card'>
+            {allFinished}
+          {/* <Statistic title="累计已完成任务量" value={allFinished} /> */}
         </div>
         ),
       },
@@ -182,6 +205,7 @@ export default function TaskStatistics(props: IProps) {
   }
   return (
     <div className="card-containers">
+      <div></div>
       <GridLayout
         className="layout"
         layout={layout}
@@ -192,7 +216,6 @@ export default function TaskStatistics(props: IProps) {
       >
         {renderCards()}
       </GridLayout>
-
     </div>
   );
 }

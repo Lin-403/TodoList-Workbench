@@ -53,12 +53,6 @@ export default function TaskCalendar(props: IProps) {
         const calendar = new Calendar('#calendar', {
             defaultView: 'month',
             taskView: true,
-            // template: {
-            //   monthDayname: function(dayname) {
-            //     return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
-            //   }
-            // }
-            // useCreationPopup: true,
             disableClick:true,
             useDetailPopup: true,
         });
@@ -86,7 +80,7 @@ export default function TaskCalendar(props: IProps) {
                 end: i.endTime.toISOString().split('.')[0]+'Z',
                 bgColor: '#8BC6EC',
                 color:'white',
-                borderColor:'#204df8',
+                borderColor:'#31A0E7',
                 isReadOnly: true    // schedule is read-only
             }))
             calendarRef.current.clear()

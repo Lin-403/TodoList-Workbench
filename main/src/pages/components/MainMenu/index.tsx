@@ -2,9 +2,6 @@
 import './index.less'
 import MenuItem from './components/MenuItem';
 import config from './config';
-import { useEffect, useState } from 'react';
-import apiConfig from '@/api/config';
-import { api } from '@/api';
 
 interface IProps{
   activeKey:number

@@ -79,6 +79,10 @@
             border-radius: var(--radius);
             background-color: var(--mainColor);
             width: 100%;
+            border: var(--mainColor);
+            &:hover{
+                background-color: var(--mainActiveColor);
+            }
         }
     }
     &--active{
@@ -144,7 +148,7 @@
         margin-bottom: 5px;
         transition: all .4s;
         &:hover{
-            background-color: var(--mainHoverColor);
+            background-color: var(--mainActiveColor);
             border-color: var(--mainColor);
         }
     }

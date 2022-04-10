@@ -1,0 +1,22 @@
+.setting-container {
+  margin-top: 60px;
+}
+.setting-container .ant-input-number-group-wrapper {
+  width: 100%;
+}
+.setting-container .ant-form-item-label > label {
+  width: 150px;
+}
+.setting-container .settings-btn {
+  width: 200px;
+  border-radius: var(--radius);
+  height: 30px;
+  border: var(--mainColor);
+  background-color: var(--mainColor);
+  width: 100%;
+  color: white;
+  transition: all 0.4s;
+}
+.setting-container .settings-btn:hover {
+  background-color: var(--mainActiveColor);
+}

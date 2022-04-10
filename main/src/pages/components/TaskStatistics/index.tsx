@@ -49,6 +49,8 @@ const DEFAULT_CARDS = [
 
 ];
 
+
+
 const LAYOUT_LOCAL_KEY = 'todo-layout'
 const CARDS_LOCAL_KEY = 'todo-cards'
 // const DEFAULT_CARD_KEYS = DEFAULT_LAYOUT.map(i => i.i)
@@ -59,8 +61,11 @@ export default function TaskStatistics(props: IProps) {
     getLocal(LAYOUT_LOCAL_KEY, DEFAULT_LAYOUT)
   )
   const [visibleCards, setVisibleCards] = useState<string[]>(
-    getLocal(CARDS_LOCAL_KEY, DEFAULT_CARDS)
+    getLocal(CARDS_LOCAL_KEY, DEFAULT_CARDS),
   );
+
+  console.log(visibleCards,'1111')
+
   const chartRefs = useRef<Record<string, ec.EChartsType>>({});
 
   useEffect(() => {
@@ -103,7 +108,6 @@ export default function TaskStatistics(props: IProps) {
 
   useEffect(() => {
     const ids = ['task-chart', 'task-guage-chart']
-    const radioDom = document.getElementById('task-chart');
     ids.forEach(i => {
       const dom = document.getElementById(i)
       if (dom && chartRefs.current) {
@@ -139,37 +143,38 @@ export default function TaskStatistics(props: IProps) {
     }
 
   }, [allData]);
-
-  const handleCardsChange = (checkedValue: any[]) => {
-    setVisibleCards(checkedValue)
-    saveLocal(CARDS_LOCAL_KEY,checkedValue)
-    // console.log(checkedValue,'143')
-  }
-
-  // onChange={(e) => {
-  //   if (e.target.checked) {
-  //     setVisibleCards([...visibleCards, i])
-  //   }
-  //   else {
-  //     setVisibleCards([...visibleCards.filter(c => c.i !== i.i)])
-  //   }
-  // }}
-  const menu = (
-    <Checkbox.Group 
-    options={DEFAULT_CARDS.map(i=>({value:i.i,label:i.title}))} 
-    value={visibleCards} 
-    style={{display:'flex',flexDirection:'column'}}
-    onChange={handleCardsChange}>
-
-    </Checkbox.Group>
-  );
   const handleLayoutChange = (l: GridLayout.Layout[]) => {
     Object.values(chartRefs.current).forEach(c=>{
       c.resize()
     })
-    
     saveLocal(LAYOUT_LOCAL_KEY, l)
   }
+  const handleCardsChange = (checkedValue: any[]) => {
+    setVisibleCards(checkedValue);
+    saveLocal(CARDS_LOCAL_KEY, checkedValue);
+    console.log(checkedValue,'155')
+  };
+
+  // const menu = (
+  //   <Checkbox.Group 
+  //   options={DEFAULT_CARDS.map(i=>({value:i.i,label:i.title}))} 
+  //   value={visibleCards} 
+  //   style={{display:'flex',flexDirection:'column'}}
+  //   onChange={handleCardsChange}>
+
+  //   </Checkbox.Group>
+  // );
+  
+  const menu = (
+    <Checkbox.Group 
+      onChange={handleCardsChange}
+      
+      options={DEFAULT_CARDS.map((i) => ({ value: i.i, label: i.title }))}
+      value={visibleCards}
+      style={{ display: 'flex', flexDirection: 'column' }}
+    ></Checkbox.Group>
+  );  
+
 
   const renderCards = () => {
     const cards = [
@@ -245,22 +250,25 @@ export default function TaskStatistics(props: IProps) {
         ),
       },
     ]
-    return cards.map(i => (
-      <div key={i.key} className={`card-container card-theme_${i.theme} 
-        ${visibleCards.includes(i.key) ? '':'card-container_hidden'}
-      `}>
-        <div className='card-container_title'>{i.title}</div>
+    // visibleCards=['allRemain', 'todaysRemain', 'todaysFinished', 'allFinished', 'outdatedCount', 'finishedRadio', 'finishedProgress']
+    return cards.map((i) => (
+      <div
+        className={`card-container card-theme_${i.theme} ${
+          visibleCards.includes(i.key) ? '' : 'card-container_hidden'
+        }`}
+        key={i.key}
+      >
+        <div className="card-container_title">{i.title}</div>
         {i.content()}
       </div>
-    ))
+    ));
   }
   return (
     <div className="card-containers">
       <div className='card-tool-bar'>
         <Popover placement="topLeft" content={menu} title="可见卡片配置" trigger="click" >
-          <div className='filter-icon'><FilterIcon active={false} /></div>
+          <div className='filter-icon'><FilterIcon/></div>
         </Popover>
-
       </div>
       <GridLayout
         className="layout"

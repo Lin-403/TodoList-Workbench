@@ -65,6 +65,10 @@
   border-radius: var(--radius);
   background-color: var(--mainColor);
   width: 100%;
+  border: var(--mainColor);
+}
+.task-item_editor .submit-btn:hover {
+  background-color: var(--mainActiveColor);
 }
 .task-item--active {
   background: #F0F2FD;
@@ -126,7 +130,7 @@
   transition: all 0.4s;
 }
 .task-item_finish-btn:hover {
-  background-color: var(--mainHoverColor);
+  background-color: var(--mainActiveColor);
   border-color: var(--mainColor);
 }
 .task-item_del-btn {

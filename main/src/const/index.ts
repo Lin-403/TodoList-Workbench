@@ -13,6 +13,7 @@ export const MENU_KEY={
     DONE:1,
     CALENDAR:10,
     STATISTICS:11,
+    SETTINGS:12,
 }
 
 export const VIEW_MODE={

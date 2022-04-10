@@ -1,9 +1,9 @@
 :root {
-  --mainColor: #43a9ec;
+  --mainColor: #9599E2;
   --radius: 6px;
-  --mainHoverColor: #88c2e9;
-  --mainLinearGradient: linear-gradient(45deg, #8BC6EC 0%, #9599E2 100%);
-  --mainLinearGradientHover: linear-gradient(180deg, #8BC6EC 0%, #9599E2 100%);
+  --mainActiveColor: #8BC6EC;
+  --mainLinearGradient: linear-gradient(45deg, var(--mainActiveColor) 0%, var(--mainColor) 100%);
+  --mainLinearGradientHover: linear-gradient(180deg, var(--mainActiveColor) 0%, var(--mainColor) 100%);
 }
 * {
   font-family: HarmonyOS;
@@ -39,15 +39,20 @@
   margin: 0 4px;
 }
 color:var(--mainColor) .ant-btn:hover {
-  color: var(--mainHoverColor);
-  border-color: var(--mainHoverColor);
+  color: var(--mainActiveColor);
+  border-color: var(--mainActiveColor);
 }
 .ant-picker-input > input:hover {
-  color: var(--mainHoverColor);
-  border-color: var(--mainHoverColor);
+  color: var(--mainActiveColor);
+  border-color: var(--mainActiveColor);
+}
+.ant-input:hover,
+.ant-input-number:hover {
+  border-color: var(--mainColor);
 }
 .ant-input:focus,
+.ant-input-number-focused,
 .ant-input-focused {
   border-color: var(--mainColor);
-  box-shadow: 0 0 0 2px var(--mainHoverColor);
+  box-shadow: 0 0 0 2px var(--mainActiveColor);
 }

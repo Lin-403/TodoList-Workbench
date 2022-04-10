@@ -2,13 +2,24 @@
   width: 260px;
   height: 260px;
 }
-.card-containers {
+.card-containers .card-tool-bar {
+  height: 50px;
+  padding: 10px;
   display: flex;
-  flex-wrap: wrap;
 }
-.card-containers .ant-statistic-title,
-.card-containers .ant-statistic-content {
-  color: white;
+.card-containers .card-tool-bar .filter-icon {
+  align-self: flex-end;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 100px ;
+  width: 20px;
+  height: 100%;
+  transition: all 0.6s;
+}
+.card-containers .card-tool-bar .filter-icon:hover {
+  transform: scale(1.2);
 }
 canvas {
   height: 300px;
@@ -31,6 +42,9 @@ canvas {
 }
 .card-container:hover {
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.card-container_hidden {
+  display: none;
 }
 .card-container_title {
   height: 20px;

@@ -6,19 +6,36 @@
 
 
 .card-containers {
-  display: flex;
-  flex-wrap: wrap;
+  .card-tool-bar {
+    height: 50px;
+    padding: 10px;
+    display: flex;
 
-  .ant-statistic-title,
-  .ant-statistic-content {
-    color: white;
+    .filter-icon {
+
+      align-self: flex-end;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      margin-right:100px ;
+      width: 20px;
+      height: 100%;
+      transition: all .6s;
+
+      &:hover {
+        transform: scale(1.2)
+      }
+
+    }
   }
 }
 
-canvas{
+canvas {
   height: 300px;
   width: 300px;
 }
+
 .card-container {
   border-radius: var(--radius);
   display: flex;
@@ -39,6 +56,10 @@ canvas{
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
   }
 
+  &_hidden {
+    display: none;
+  }
+
   &_title {
     height: 20px;
     font-size: 15px;
@@ -47,12 +68,13 @@ canvas{
     font-weight: bold;
     color: white;
   }
+
 }
 
-.statistic-card{
-  color:white;
+.statistic-card {
+  color: white;
   font-size: 30px;
-  margin:0 auto;
+  margin: 0 auto;
   margin-bottom: 15px;
 }
 
@@ -60,7 +82,7 @@ canvas{
   &_green {
     background-color: #74EBD5;
     background-image: linear-gradient(225deg, #74EBD5 0%, #adb7eb 50%, #9bc6fe 100%);
-    
+
     .card-container_title {
       color: white;
     }
@@ -110,12 +132,14 @@ canvas{
       color: white;
     }
   }
-  &_yijiezhi{
+
+  &_yijiezhi {
     background-color: #60f3ff;
     background-image: linear-gradient(45deg, #60f3ff 0%, #ffaed1 50%, #facbe3 100%);
-    
+
     .card-container_title {
       color: white;
     }
   }
 }
+

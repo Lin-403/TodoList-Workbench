@@ -18,3 +18,8 @@
 /src/.umi-production
 /src/.umi-test
 /.env.local
+
+
+# JSON 数据文件
+DONING.JSON 
+DONE.JSON

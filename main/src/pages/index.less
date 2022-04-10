@@ -1,7 +1,9 @@
 :root{
   --mainColor:#43a9ec;
+  // --mainColor:#43ec6a;
   --radius:6px;
-  --mainHoverColor:#6bb7e9;
+  --mainHoverColor:#88c2e9;
+  // --mainHoverColor:#5ed35e;
   --mainLinearGradient:linear-gradient(45deg, #8BC6EC 0%, #9599E2 100%);
   --mainLinearGradientHover: linear-gradient(180deg, #8BC6EC 0%, #9599E2 100%);
   
@@ -41,10 +43,31 @@
 
 .tag{
   padding:2px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   font-size: 12px;
   // width: 120px;
   margin-bottom: 2px;
   margin:0 4px;
+}
+
+//antd 主题样式覆盖
+
+.ant-btn{
+  color:var(--mainColor)
+  &:hover{
+    color: var(--mainHoverColor);
+    border-color: var(--mainHoverColor);
+  }
+}
+
+.ant-picker-input > input:hover{
+  color: var(--mainHoverColor);
+  border-color: var(--mainHoverColor);
+}
+
+.ant-input:focus,.ant-input-focused{
+  border-color: var(--mainColor);
+  box-shadow: 0 0 0 2px var(--mainHoverColor);
+
 }
 

@@ -1,11 +1,11 @@
 .task-calendar{
-
+   
     &_container{
         flex: 1;
         background: #fcfcfc;
         padding: 10px 20px;
         // height: 500px;
-        margin: 0 30px 0px 10px;
+        margin: 20px 30px 0px 10px;
         border-radius:var(--radius);
         box-shadow: 5px 5px 10px #d1d1d1,-5px -5px 10px #ffffff;
 
@@ -14,7 +14,7 @@
         // }
        
         #calendar{
-            height: 550px;
+            height: 600px;
             .tui-full-calendar-month{
                 min-height: 500px;
                 .tui-view-8{
@@ -22,9 +22,16 @@
                 }
             }
         }
+        
+    }
+    &_tools{
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
     }
     &_btns{
         margin-bottom: 10px;
+        
         button:nth-child(1){
             border-radius: 14px 0 0 14px;
             border-right: none;

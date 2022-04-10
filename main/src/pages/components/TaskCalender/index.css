@@ -2,18 +2,23 @@
   flex: 1;
   background: #fcfcfc;
   padding: 10px 20px;
-  margin: 0 30px 0px 10px;
+  margin: 20px 30px 0px 10px;
   border-radius: var(--radius);
   box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
 }
 .task-calendar_container #calendar {
-  height: 550px;
+  height: 600px;
 }
 .task-calendar_container #calendar .tui-full-calendar-month {
   min-height: 500px;
 }
 .task-calendar_container #calendar .tui-full-calendar-month .tui-view-8 {
   height: 500px;
+}
+.task-calendar_tools {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
 }
 .task-calendar_btns {
   margin-bottom: 10px;

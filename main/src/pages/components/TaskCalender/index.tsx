@@ -24,7 +24,7 @@ export default function TaskCalendar(props: IProps) {
 
     const calendarRef = useRef<any>()
     const [tasks, setTasks] = useState<TaskT[]>([])
-
+    const [view, setView] = useState('month')
     //获取json数据
     const getLatestList = () => {
         getApi(apiConfig.list.url, {
@@ -51,17 +51,17 @@ export default function TaskCalendar(props: IProps) {
     }
     useEffect(() => {
         const calendar = new Calendar('#calendar', {
-            defaultView: 'month',
+            defaultView: view,
             taskView: true,
-            disableClick:true,
+            disableClick: true,
             useDetailPopup: true,
         });
         calendarRef.current = calendar
         getLatestList()
-        return ()=>{
-            const dom=document.querySelector('#calendar')
-            if(dom){
-                dom.innerHTML=''
+        return () => {
+            const dom = document.querySelector('#calendar')
+            if (dom) {
+                dom.innerHTML = ''
             }
         }
     }, [])
@@ -76,11 +76,11 @@ export default function TaskCalendar(props: IProps) {
                 dueDateClass: '',
                 // start: '2022-04-18T17:30:00+09:00',
                 // end: '2022-04-19T17:31:00+09:00',
-                start: i.startTime.toISOString().split('.')[0]+'Z',
-                end: i.endTime.toISOString().split('.')[0]+'Z',
+                start: i.startTime.toISOString().split('.')[0] + 'Z',
+                end: i.endTime.toISOString().split('.')[0] + 'Z',
                 bgColor: '#8BC6EC',
-                color:'white',
-                borderColor:'#31A0E7',
+                color: 'white',
+                borderColor: '#31A0E7',
                 isReadOnly: true    // schedule is read-only
             }))
             calendarRef.current.clear()
@@ -88,11 +88,11 @@ export default function TaskCalendar(props: IProps) {
         }
     }, [tasks])
 
-    const pageChange=(flag: 1|-1|0)=>{
-        if(flag===1){
+    const pageChange = (flag: 1 | -1 | 0) => {
+        if (flag === 1) {
             calendarRef.current?.next()
         }
-        else if(flag==-1){
+        else if (flag == -1) {
             calendarRef.current?.prev()
         }
         else {
@@ -100,14 +100,25 @@ export default function TaskCalendar(props: IProps) {
         }
     }
 
+    const viewChange = (v: string) => {
+        setView(v)
+        calendarRef.current.changeView(v)
+    }
+
     return (
         <div className='task-calendar_container'>
-            <div className="task-calendar_btns">
-                
-                <Button onClick={()=>pageChange(-1)} size="small">PreMonth</Button>
-                <Button onClick={()=>pageChange(0)} size="small">Today</Button>
-                <Button onClick={()=>pageChange(1)} size="small">NextMonth</Button>
+            <div className='task-calendar_tools'>
+                <div className="task-calendar_btns">
+                    <Button onClick={() => pageChange(-1)} size="small">Pre</Button>
+                    <Button onClick={() => pageChange(0)} size="small">Today</Button>
+                    <Button onClick={() => pageChange(1)} size="small">Next</Button>
+                </div>
 
+                <div className="task-calendar_btns">
+                    <Button onClick={() => viewChange('month')} size="small" disabled={view==='month'}>Month</Button>
+                    <Button onClick={() => viewChange('week')} size="small" disabled={view==='week'}>Week</Button>
+                    <Button onClick={() => viewChange('day')} size="small" disabled={view==='day'}>Day</Button>
+                </div>
             </div>
             <div id="calendar"></div>
         </div>

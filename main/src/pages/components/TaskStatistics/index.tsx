@@ -23,6 +23,8 @@ import { Button, Checkbox, Dropdown, Menu, Popover } from 'antd';
 import MenuItem from 'antd/lib/menu/MenuItem';
 import { FilterIcon } from '@/components/Icon';
 
+
+
 interface IProps { }
 
 const DEFAULT_LAYOUT = [
@@ -49,6 +51,11 @@ const DEFAULT_CARDS = [
 
 ];
 
+const allId: string[]=[]
+DEFAULT_CARDS.map(i=>{
+  allId.push(i.i)
+})
+// console.log(allTitle,'56')
 
 
 const LAYOUT_LOCAL_KEY = 'todo-layout'
@@ -57,14 +64,14 @@ const CARDS_LOCAL_KEY = 'todo-cards'
 
 export default function TaskStatistics(props: IProps) {
   const [allData, setAllData] = useState<{ doing: any[]; done: any[] }>();
+
   const [layout, setLayout] = useState<GridLayout.Layout[]>(
     getLocal(LAYOUT_LOCAL_KEY, DEFAULT_LAYOUT)
   )
-  const [visibleCards, setVisibleCards] = useState<string[]>(
+  var [visibleCards, setVisibleCards] = useState<string[]>(
     getLocal(CARDS_LOCAL_KEY, DEFAULT_CARDS),
   );
 
-  console.log(visibleCards,'1111')
 
   const chartRefs = useRef<Record<string, ec.EChartsType>>({});
 
@@ -72,7 +79,6 @@ export default function TaskStatistics(props: IProps) {
     api(apiConfig.all.url).then((res) => {
       if (res.code === API_RESULT.SUCCESS) {
         setAllData(res.data);
-        console.log(res.data, 'all');
       }
     });
   }, []);
@@ -155,25 +161,23 @@ export default function TaskStatistics(props: IProps) {
     console.log(checkedValue,'155')
   };
 
-  // const menu = (
-  //   <Checkbox.Group 
-  //   options={DEFAULT_CARDS.map(i=>({value:i.i,label:i.title}))} 
-  //   value={visibleCards} 
-  //   style={{display:'flex',flexDirection:'column'}}
-  //   onChange={handleCardsChange}>
-
-  //   </Checkbox.Group>
-  // );
-  
-  const menu = (
-    <Checkbox.Group 
-      onChange={handleCardsChange}
-      
-      options={DEFAULT_CARDS.map((i) => ({ value: i.i, label: i.title }))}
-      value={visibleCards}
-      style={{ display: 'flex', flexDirection: 'column' }}
-    ></Checkbox.Group>
-  );  
+  const getMenu=()=>{
+    if(visibleCards[0]){
+      if(visibleCards[0].length===undefined){
+        visibleCards=allId
+      }
+    }
+    const menu = (
+      <Checkbox.Group 
+        onChange={handleCardsChange}
+        options={DEFAULT_CARDS.map((i) => ({ value: i.i, label: i.title }))}
+        value={visibleCards}
+        style={{ display: 'flex', flexDirection: 'column' }}
+      ></Checkbox.Group>
+    )
+     return menu
+  }
+  ;  
 
 
   const renderCards = () => {
@@ -250,7 +254,11 @@ export default function TaskStatistics(props: IProps) {
         ),
       },
     ]
-    // visibleCards=['allRemain', 'todaysRemain', 'todaysFinished', 'allFinished', 'outdatedCount', 'finishedRadio', 'finishedProgress']
+    if(visibleCards[0]){
+      if(visibleCards[0].length===undefined){
+        visibleCards=allId
+      }
+    }
     return cards.map((i) => (
       <div
         className={`card-container card-theme_${i.theme} ${
@@ -266,7 +274,7 @@ export default function TaskStatistics(props: IProps) {
   return (
     <div className="card-containers">
       <div className='card-tool-bar'>
-        <Popover placement="topLeft" content={menu} title="可见卡片配置" trigger="click" >
+        <Popover placement="topLeft" content={getMenu()} title="可见卡片配置" trigger="click" >
           <div className='filter-icon'><FilterIcon/></div>
         </Popover>
       </div>

@@ -17,6 +17,9 @@ export default function MainMenu(props:IProps) {
 
   return (
     <div className='main-menu'>
+      <div className='logo'>
+        {/* <img src="../../../resource/logo1.png" alt="" /> */}
+      </div>
       <div className='main-menu_content'>
       {
         

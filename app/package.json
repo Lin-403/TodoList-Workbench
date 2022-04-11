@@ -3,14 +3,55 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "description": "待办工作台",
+  "author": "XuMin",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
+
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "electron": "^18.0.1"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
+    "electron-squirrel-startup": "^1.0.0",
     "tui-calendar": "^1.15.3"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "name": "TodoList Workbench-v1.0.0",
+        "icon": "./logo.ico"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "todo_workbench_app"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

@@ -1,24 +1,53 @@
-const { app, BrowserWindow } = require('electron')
-const  startServer  = require('./server/bin/www')
+const { app, BrowserWindow, Tray, Menu, nativeImage } = require('electron');
+const startServer = require('./server/bin/www');
+const path = require('path')
 
-const createWindow = () => {
+const logoPath = path.join(__dirname,'logo.png')
 
-    startServer()
-    //创建一个窗口对象
-    const win = new BrowserWindow({
-      width: 800,
-      height: 600
-    })
-   //读取文件作为窗口
-    win.loadFile('index.html')
-  }
-  
-//准备完毕展示窗口
-  app.whenReady().then(() => {
-    createWindow()
+function createWindow() {
+  startServer();
+  const win = new BrowserWindow({
+    width: 1200,
+    height: 700,
+    webPreferences: {
+      contextIsolation: false,
+    },
+  });
+  win.menuBarVisible = false;
+  win.setIcon(logoPath)
+  win.on('close', (event) => {
+    event.preventDefault()
+    win.hide()
   })
+  win.loadFile('index.html');
+  return win
+}
 
-  //窗口关闭，同时关闭相应进程
-  app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
+let tray = null;
+const prepareTray = (win) => {
+  tray = new Tray(logoPath);
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: '退出应用',
+      type: 'normal',
+      click: () => {
+        app.exit()
+      },
+    },
+  ]);
+
+  tray.setContextMenu(contextMenu);
+  tray.setToolTip('待办工作台');
+  tray.on('click', () => {
+    win.show()
   })
+};
+
+app.whenReady().then(() => {
+  const win = createWindow();
+  prepareTray(win);
+});
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
+});
